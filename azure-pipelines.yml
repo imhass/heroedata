@@ -44,3 +44,4 @@ steps:
     appType: 'apiApp'
     WebAppName: 'avengersapi'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
+
