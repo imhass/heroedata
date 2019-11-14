@@ -37,12 +37,10 @@ steps:
       AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
       AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
 
-step:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure Pass - Sponsorship(94f14258-8951-49a3-bb71-dd22d3dd1fb7)'
-    appType: 'apiApp'
-    WebAppName: 'myavengersapi'
+    appType: 'webApp'
+    WebAppName: 'myavengers'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
-
