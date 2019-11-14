@@ -42,6 +42,6 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure Pass - Sponsorship(94f14258-8951-49a3-bb71-dd22d3dd1fb7)'
     appType: 'apiApp'
-    WebAppName: 'avengersapi'
+    WebAppName: 'myavengersapi'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
 
