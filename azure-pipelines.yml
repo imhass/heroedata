@@ -5,45 +5,42 @@
 trigger:
   branches:
     include:
-    - master
-    - 2.0.x
-    - 2.1.x
+      - master
+      - 2.0.x
+      - 2.1.x
   paths:
     exclude:
-    - README.md
+      - README.md
 pr:
-- master
-- 2.0.x
-- 2.1.x
+  - master
+  - 2.0.x
+  - 2.1.x
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Maven@3
-  displayName: Maven Build
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean package verify'
-  env:
-    AZURE_TENANT: $(AZURE_TENANT)
-    AZURE_SUBSCRIPTION: $(AZURE_SUBSCRIPTION)
-    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
-    AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+  - task: Maven@3
+    displayName: Maven Build
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'clean package verify'
+    env:
+      AZURE_TENANT: $(AZURE_TENANT)
+      AZURE_SUBSCRIPTION: $(AZURE_SUBSCRIPTION)
+      AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+      AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
 
-- task: Gradle@2
-  displayName: Gradle Build
-  inputs:
-    gradleWrapperFile: 'azure-spring-boot-samples/gradlew'
-    workingDirectory: 'azure-spring-boot-samples'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: false
-    tasks: 'build'
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Azure Pass - Sponsorship(94f14258-8951-49a3-bb71-dd22d3dd1fb7)'
+      appType: 'apiApp'
+      WebAppName: 'avengersapi'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
