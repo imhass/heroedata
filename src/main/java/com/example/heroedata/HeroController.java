@@ -21,11 +21,12 @@ public class HeroController {
     @Autowired
     private HeroRepository heroRepository;
 
-    @PostMapping (path="/heroes")
-    public @ResponseBody String createHeroes(@RequestBody Hero hero) {
-        // Save the User class to Azure CosmosDB database.
-        final Mono<Hero> saveHeroMono = heroRepository.save(hero);
-        return String.format("Added new %s.", hero);
+
+    @PostMapping ("/heroes")
+    Mono<Hero> hero(@RequestBody Hero h){
+        final Mono<Hero> mh;
+        mh = heroRepository.save(h);
+        return mh;
     }
 
     @GetMapping (path="/heroes")
