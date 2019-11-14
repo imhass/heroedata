@@ -25,7 +25,7 @@ public class HeroController {
     public @ResponseBody String createHeroes(@RequestBody Hero hero) {
         // Save the User class to Azure CosmosDB database.
         final Mono<Hero> saveHeroMono = heroRepository.save(hero);
-        return String.format("Added %s.", hero);
+        return String.format("Added new %s.", hero);
     }
 
     @GetMapping (path="/heroes")
